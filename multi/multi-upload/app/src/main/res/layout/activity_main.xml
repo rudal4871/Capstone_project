@@ -18,34 +18,58 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="160dp"
-                android:padding="10dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
                 <ImageView
                     android:id="@+id/iv_add_image"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:src="@android:drawable/ic_input_add"
-                    android:tint="@android:color/darker_gray"
+                    android:layout_width="106dp"
+                    android:layout_height="105dp"
                     android:background="@android:color/background_light"
-                    android:inputType="phone"/>
+                    android:inputType="phone"
+                    android:src="@android:drawable/ic_input_add"
+                    android:tint="@android:color/darker_gray" />
             </LinearLayout>
+
         </LinearLayout>
     </HorizontalScrollView>
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
         android:id="@+id/submit_button"
-        android:layout_marginTop="50dp"
-        android:layout_width="300dp"
-        android:layout_gravity="center"
+        android:layout_width="186dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@color/colorPrimary"
+        android:text="Upload"
+        android:textColor="@android:color/white"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        app:spinning_bar_color="#FFF"
+        app:spinning_bar_padding="6dp"
+        app:spinning_bar_width="4dp" />
+
+    <FrameLayout
+        android:id="@+id/Main_Frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+        android:id="@+id/bottomNavi"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:background="@color/colorPrimary"
         android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:textSize="17dp"
-        android:text="Upload"
-        app:spinning_bar_width="4dp"
-        app:spinning_bar_color="#FFF"
-        app:spinning_bar_padding="6dp"/>
-
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_menu" />
 </LinearLayout>

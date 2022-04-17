@@ -5,6 +5,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.content.Context;
@@ -18,14 +20,21 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.emericoapp.upload.fragment.Frag1;
+import com.emericoapp.upload.fragment.Frag2;
+import com.emericoapp.upload.fragment.Frag3;
 import com.emericoapp.upload.model.ApiModel;
 import com.emericoapp.upload.network.ApiConstants;
 import com.emericoapp.upload.network.ServiceInterface;
 import com.emericoapp.upload.utils.FileUtil;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.navigation.NavigationBarItemView;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -42,6 +51,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+   //bottomNaviview
+    private BottomNavigationItemView BottomNavigationView;
+    private NavigationBarItemView NavigationBarItemView;
+    private FragmentManager fm;
+    private FragmentTransaction ft;
+    private Frag1 frag1;
+    private Frag2 frag2;
+    private Frag3 frag3;
+//listview
+    private ListView list;
 
     ImageView selectedImage;
     CircularProgressButton btnSubmit;
@@ -56,7 +75,70 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //list
+        {
+            list=(ListView)findViewById(R.id.list);
 
+             //1.배열안에다가  String 형태로 넣겠다
+            List<String>data = new ArrayList<>();
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,data
+            ); //2.this=now activity, android basic form
+
+            //3.list <-connect bridge(adapter)
+              list.setAdapter(adapter);
+            data.add("넣고 싶은 데이터 넣기");
+            data.add("Android");
+            adapter.notifyDataSetChanged(); //위의 데이터를 저장한다
+        }
+    //    BottomNavigationView= findViewById(R.id.bottomNavi);
+
+
+//        //bottomNavi 프레그먼트를 트렉젝션 즉 교체를 해주는 작업
+//        NavigationBarItemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                switch (NavigationBarItemView.getItemData()) {
+//                    case R.id.action_work:
+//                            setFrag(0);
+//                        break;
+//                    case R.id.action_home:
+//                        setFrag(1);
+//                        break;
+//                    case R.id.action_quote:
+//                        setFrag(2);
+//                        break;
+//                }
+//            }
+//        });
+
+
+        frag1=new Frag1();
+        frag2 =new Frag2();
+        frag3 =new Frag3();
+        setFrag(0);//첫 frag 화면을 무엇으로 지정해 줄지정하는 것
+
+        }
+       //프레그 먼트 교체 실행문
+        private void setFrag(int n) {
+            fm = getSupportFragmentManager();
+            ft = fm.beginTransaction(); //트랜젝션이 실제적인 프레그먼트 교체가 이뤄지면 프레그 먼트를 가져와서 트렌젝션 하는 행위
+            switch (n) {
+                case 0:  //총3개의 fragment가 교체 된다는 뜻
+
+                    ft.replace(R.id.main_frame, frag1);
+                    ft.commit();
+                    break;
+                case 1:
+                    ft.replace(R.id.main_frame, frag2);
+                    ft.commit();
+                    break;
+                case 2:
+                    ft.replace(R.id.main_frame, frag3);
+                    ft.commit();
+                    break;
+
+            }
 
         parentLinearLayout= findViewById(R.id.parent_linear_layout);
 

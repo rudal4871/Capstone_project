@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/action_home"
-        android:enabled="true"
-        android:icon="@drawable/ic_baseline_group_work_24"
-        android:title="home"/>
+
 
     <item
         android:id="@+id/action_work"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_home_24"
+        android:icon="@drawable/ic_baseline_group_work_24"
         android:title="menu"/>
+
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="home"/>
 
     <item
         android:id="@+id/action_quote"

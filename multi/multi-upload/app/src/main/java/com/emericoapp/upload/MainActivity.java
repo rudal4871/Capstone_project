@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.widget.VideoView;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,7 +25,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.MediaController;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.emericoapp.upload.fragment.Frag1;
 import com.emericoapp.upload.fragment.Frag2;
@@ -51,6 +54,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+
+   // videoview
+    private VideoView videoView;//비디오 실행 가능하게 도와주는 역할
+    private MediaController mediaController;//비디오의 재생 정지버튼관리
+
    //bottomNaviview
     private BottomNavigationItemView BottomNavigationView;
     private NavigationBarItemView NavigationBarItemView;
@@ -71,10 +79,27 @@ public class MainActivity extends AppCompatActivity {
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 
-    @Override
+
+
+
+    @Override  //oncreate 앱이 처음 실행되었을때 시행된다
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+       /* //video view
+        VideoView videoView = (VideoView) findViewById(R.id.Videoview);
+        MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(videoView);
+        // Set video link (mp4 format )
+        Uri video = Uri.parse(보여줄 동영상주소);
+        videoView.setMediaController(mediaController);
+        videoView.setVideoURI(video);
+        videoView.requestFocus();
+        videoView.start();
+
+
+
         //list
         {
             list=(ListView)findViewById(R.id.list);
@@ -90,15 +115,14 @@ public class MainActivity extends AppCompatActivity {
             data.add("넣고 싶은 데이터 넣기");
             data.add("Android");
             adapter.notifyDataSetChanged(); //위의 데이터를 저장한다
-        }
-    //    BottomNavigationView= findViewById(R.id.bottomNavi);
+        }*/
 
 
 //        //bottomNavi 프레그먼트를 트렉젝션 즉 교체를 해주는 작업
 //        NavigationBarItemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                switch (NavigationBarItemView.getItemData()) {
+//                switch (menuItem.getItemId()) {
 //                    case R.id.action_work:
 //                            setFrag(0);
 //                        break;
@@ -112,13 +136,14 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+        BottomNavigationView = findViewById(R.id.bottomNavi);
 
-        frag1=new Frag1();
-        frag2 =new Frag2();
-        frag3 =new Frag3();
+        frag1 = new Frag1();
+        frag2 = new Frag2();
+        frag3 = new Frag3();
         setFrag(0);//첫 frag 화면을 무엇으로 지정해 줄지정하는 것
 
-        }
+    }
        //프레그 먼트 교체 실행문
         private void setFrag(int n) {
             fm = getSupportFragmentManager();
